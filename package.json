@@ -40,7 +40,8 @@
     "gulp-zip": "^4.0.0",
     "imagemin-mozjpeg": "^6.0.0",
     "imagemin-pngquant": "^5.0.1",
-    "plumber": "^0.4.8"
+    "plumber": "^0.4.8",
+    "run-sequence": "^2.2.0"
   },
   "dependencies": {
     "imagemin-gifsicle": "^5.2.0"

@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const watch = require('gulp-watch');
 const plumber = require('gulp-plumber');
+const runSequence = require('run-sequence');
 const flatten = require('gulp-flatten');
 const rename = require('gulp-rename');
 const del = require('del');
@@ -23,6 +24,13 @@ const PACKAGE = 'images.zip';
 
 const SIZES = [200, 400, 800, 1200, 1600, 2000, 2400];
 const QUALITY = 70;
+
+gulp.task('clean', () => {
+  return del.sync([
+    DIST_PATH,
+    PACKAGE
+  ])
+});
 
 // run resize-200, for instance
 // https://stackoverflow.com/questions/35801807/gulp-image-resize-to-generate-multiple-output-sizes
@@ -76,28 +84,32 @@ gulp.task('copy-raster', () => {
     .pipe(gulp.dest(DIST_PATH));
 });
 
-gulp.task('clean', () => {
-  return del.sync([
-    DIST_PATH,
-    PACKAGE
-  ])
+gulp.task('copy-raster-compress', () => {
+  return gulp.src(RASTER_PATH)
+    .pipe(imagemin())
+    .pipe(flatten())
+    .pipe(gulp.dest(DIST_PATH));
 });
 
-gulp.task('once', ['clean'], () => {
+gulp.task('resize-image-tasks', () => {
   gulp.start(resizeImageTasks);
-  gulp.start('copy-raster');
-  gulp.start('svg');
+})
+
+gulp.task('once', ['clean'], () => {
+  return runSequence(resizeImageTasks, () => {
+    gulp.start('copy-raster');
+    gulp.start('svg');
+  })
 });
 
 gulp.task('watch', ['once'], () => {
   watch(RASTER_PATH, () => {
-    gulp.start(resizeImageTasks);
-  });
-  watch(RASTER_PATH, () => {
-    gulp.start('copy-raster');
+    return runSequence(['copy-raster'], () => {
+      gulp.start(resizeImageTasks);
+    })
   });
   watch(SVG_PATH, () => {
-    gulp.start('svg');
+    return gulp.start('svg');
   });
 });
 
