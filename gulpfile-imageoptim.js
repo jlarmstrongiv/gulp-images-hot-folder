@@ -1,3 +1,4 @@
+// OBSOLETE, use gulpfile.js
 // --gulpfile gulpfile-imageoptim.js
 const gulp = require('gulp');
 const watch = require('gulp-watch');
