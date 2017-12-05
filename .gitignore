@@ -1,5 +1,6 @@
 ### Custom ###
-/src
+/src/*
+!/src/.gitkeep
 /dist
 
 # Created by https://www.gitignore.io/api/node,macOS,windows,linux
