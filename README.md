@@ -18,7 +18,7 @@ The `src` folder is a “hot” folder, which means anything dragged into it wil
 Other available commands:
 
 - `gulp clean`:  deletes the dist folder
-- `gulp once`:  runs gulp clean and processes the image
+- `gulp once`:  runs gulp clean and processes the images
 - `gulp export`:  packages the dist folder into a zip file
 
 That’s about it.  Hope you have a nice day! :)
