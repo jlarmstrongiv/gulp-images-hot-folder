@@ -1,6 +1,6 @@
 # Image Resizer with Gulp.js
 
-This project is a sample image resized with gulp.js.  The gulpfile.js uses imagemin to compress the photos.  Feel free to edit the `const SIZES = [200, 400]` to add or remove variations, or the `const QUALITY = 70` to change the quality of the resulting file sizes.  
+This project is a sample image resizer with gulp.js.  The gulpfile.js uses imagemin to compress the photos.  Feel free to edit the `const SIZES = [200, 400]` to add or remove variations, or the `const QUALITY = 70` to change the quality and subsequently their file sizes.  
 
 ## Installation
 
