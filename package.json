@@ -1,0 +1,48 @@
+{
+  "name": "gulp-images-hot-folder",
+  "version": "0.0.1",
+  "description": "Hot folder to process images with gulp.js and image-resizer Edit",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlarmstrongiv/gulp-images-hot-folder.git"
+  },
+  "keywords": [
+    "gulp.js",
+    "image",
+    "resizer",
+    "hot",
+    "folder"
+  ],
+  "author": "John Armstrong <jlarmst@g.clemson.edu> (https://github.com/jlarmstrongiv)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jlarmstrongiv/gulp-images-hot-folder/issues"
+  },
+  "homepage": "https://github.com/jlarmstrongiv/gulp-images-hot-folder#readme",
+  "devDependencies": {
+    "concurrent-transform": "^1.0.0",
+    "del": "^3.0.0",
+    "flatten": "^1.0.2",
+    "gulp": "^3.9.1",
+    "gulp-changed": "^3.1.1",
+    "gulp-flatten": "^0.3.1",
+    "gulp-image-resize": "^0.13.0",
+    "gulp-imagemin": "^4.0.0",
+    "gulp-imageoptim": "^1.0.9",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-svgmin": "^1.2.4",
+    "gulp-watch": "^4.3.11",
+    "gulp-zip": "^4.0.0",
+    "imagemin-mozjpeg": "^6.0.0",
+    "imagemin-pngquant": "^5.0.1",
+    "plumber": "^0.4.8"
+  },
+  "dependencies": {
+    "imagemin-gifsicle": "^5.2.0"
+  }
+}
