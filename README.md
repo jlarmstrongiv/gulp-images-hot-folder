@@ -4,7 +4,14 @@ This project is a sample image resizer with gulp.js.  The gulpfile.js uses image
 
 ## Installation
 
-To open this project, ensure that you have node.js [installed](https://github.com/creationix/nvm), and run the following commands in your terminal:  
+To open this project, ensure that you have the following dependencies installed:
+
+- [homebrew](https://brew.sh/)
+- brew install node (or install with [nvm](https://github.com/creationix/nvm))
+- brew install imagemagick
+- brew install graphicsmagick
+
+Run the following commands in your terminal:  
 
 1. `git clone https://github.com/jlarmstrongiv/gulp-images-hot-folder`
 2. `cd gulp-images-hot-folder`

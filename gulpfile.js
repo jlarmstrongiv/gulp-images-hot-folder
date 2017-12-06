@@ -50,6 +50,8 @@ SIZES.forEach(function(size) {
            quality: 1,
            noProfile: false,
            flatten: true,
+           imageMagick: true,
+           background: 'transparent'
          })
       ))
       .pipe(rename((path) => {
@@ -82,8 +84,7 @@ gulp.task('resize-image-tasks', () => {
 })
 
 gulp.task('once', ['clean'], () => {
-  gulp.start('resize-image-tasks');
-  gulp.start('svg');
+  return gulp.start(['resize-image-tasks', 'svg']);
 });
 
 gulp.task('watch', ['once'], () => {
