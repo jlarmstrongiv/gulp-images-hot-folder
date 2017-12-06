@@ -31,7 +31,7 @@ Other available commands:
 
 Deprecated commands:
 
-- `r-once`:  uses the imagemin algorithms to compress images
-- `r-watch`:  uses the imagemin algorithms to compress images
+- `gulp r-once`:  uses the imagemin algorithms to compress images
+- `gulp r-watch`:  uses the imagemin algorithms to compress images
 
 That’s about it.  Hope you have a nice day! :)
