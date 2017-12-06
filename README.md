@@ -7,7 +7,7 @@ This project is a sample image resizer with gulp.js.  The gulpfile.js uses ~~gul
 To open this project, ensure that you have the following dependencies installed:
 
 - [homebrew](https://brew.sh/)
-- xcode app (must open app for final installation)
+- [xcode](https://itunes.apple.com/us/app/xcode/id497799835) app (must open app for final installation)
 - brew install node (or install with [nvm](https://github.com/creationix/nvm))
 - brew install homebrew/science/vips --with-webp --with-graphicsmagick
 - brew install imagemagick
