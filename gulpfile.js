@@ -88,7 +88,7 @@ gulp.task('once', ['clean'], () => {
 
 gulp.task('watch', ['once'], () => {
   watch(RASTER_PATH, () => {
-    return
+    return gulp.start('resize-image-tasks');
   });
   watch(SVG_PATH, () => {
     return gulp.start('svg');
