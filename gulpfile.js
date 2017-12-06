@@ -52,8 +52,6 @@ SIZES.forEach(function(size) {
            flatten: true,
          })
       ))
-      .pipe(flatten())
-      .pipe(gulp.dest(DIST_PATH))
       .pipe(rename((path) => {
         path.basename += '-' + size;
       }))
@@ -63,6 +61,7 @@ SIZES.forEach(function(size) {
       	pngquant({quality: QUALITY}),
       	imagemin.svgo()
       ]))
+      .pipe(flatten())
       .pipe(gulp.dest(DIST_PATH))
       .pipe(plumber.stop())
   });
@@ -78,35 +77,18 @@ gulp.task('svg', () => {
     .pipe(plumber.stop())
 });
 
-gulp.task('copy-raster', () => {
-  return gulp.src(RASTER_PATH)
-    .pipe(flatten())
-    .pipe(gulp.dest(DIST_PATH));
-});
-
-gulp.task('copy-raster-compress', () => {
-  return gulp.src(RASTER_PATH)
-    .pipe(imagemin())
-    .pipe(flatten())
-    .pipe(gulp.dest(DIST_PATH));
-});
-
 gulp.task('resize-image-tasks', () => {
   gulp.start(resizeImageTasks);
 })
 
 gulp.task('once', ['clean'], () => {
-  return runSequence(resizeImageTasks, () => {
-    gulp.start('copy-raster');
-    gulp.start('svg');
-  })
+  gulp.start('resize-image-tasks');
+  gulp.start('svg');
 });
 
 gulp.task('watch', ['once'], () => {
   watch(RASTER_PATH, () => {
-    return runSequence(['copy-raster'], () => {
-      gulp.start(resizeImageTasks);
-    })
+    return
   });
   watch(SVG_PATH, () => {
     return gulp.start('svg');
@@ -119,4 +101,23 @@ gulp.task('package', ['once'], () => {
     .pipe(zip(PACKAGE))
     .pipe(plumber.stop())
     .pipe(gulp.dest('./'))
+});
+// moves originals too
+gulp.task('copy-raster', () => {
+  return gulp.src(RASTER_PATH)
+    .pipe(flatten())
+    .pipe(gulp.dest(DIST_PATH));
+});
+
+gulp.task('once-originals', ['clean'], () => {
+  gulp.start(['resize-image-tasks', 'copy-raster', 'svg']);
+});
+
+gulp.task('watch-originals', ['once-originals'], () => {
+  watch(RASTER_PATH, () => {
+    return gulp.start(['resize-image-tasks', 'copy-raster']);
+  });
+  watch(SVG_PATH, () => {
+    return gulp.start('svg');
+  });
 });
