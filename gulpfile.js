@@ -6,7 +6,7 @@ const flatten = require('gulp-flatten');
 const rename = require('gulp-rename');
 const del = require('del');
 const zip = require('gulp-zip');
-
+// image resizing
 const imageResize = require('gulp-image-resize');
 const parallel = require('concurrent-transform');
 const os = require('os');
@@ -16,12 +16,11 @@ const pngquant = require('imagemin-pngquant');
 const imageminMozjpeg = require('imagemin-mozjpeg');
 // const imageminGuetzli = require('imagemin-guetzli');
 const responsive = require('gulp-responsive');
-
+// paths
 const DIST_PATH = 'dist';
 const SRC_PATH = 'src';
 const SVG_PATH = SRC_PATH + '/**/*.svg';
 const RASTER_PATH = SRC_PATH + '/**/*.{jpg,jpeg,png,gif}';
-
 const PACKAGE = 'images.zip';
 
 const SIZES = [200, 400, 800, 1200, 1600, 2000, 2400];
@@ -110,7 +109,7 @@ SIZES.forEach(function(size) {
         progressive: true,
         compressionLevel: 6,
         withMetadata: false,
-        quality: 70,
+        quality: QUALITY,
         withoutEnlargement: true,
         skipOnEnlargement: false,
         errorOnEnlargement: false,

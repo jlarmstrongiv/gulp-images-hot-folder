@@ -1,6 +1,6 @@
 # Image Resizer with Gulp.js
 
-This project is a sample image resizer with gulp.js.  The gulpfile.js uses imagemin to compress the photos.  Feel free to edit the `const SIZES = [200, 400]` to add or remove variations, or the `const QUALITY = 70` to change the quality and subsequently their file sizes.  
+This project is a sample image resizer with gulp.js.  The gulpfile.js uses ~~gulp-image resize and gulp-imagemin~~ gulp-responsive and sharp to compress the photos.  Feel free to edit the `const SIZES = [200, 400]` to add or remove variations, or the `const QUALITY = 70` to change the quality and subsequently their file sizes.  
 
 ## Installation
 
@@ -26,6 +26,12 @@ Other available commands:
 
 - `gulp clean`:  deletes the dist folder
 - `gulp once`:  runs gulp clean and processes the images
+- `gulp watch`:  runs gulp once every time a file changes
 - `gulp export`:  packages the dist folder into a zip file
+
+Deprecated commands:
+
+- `r-once`:  uses the imagemin algorithms to compress images
+- `r-watch`:  uses the imagemin algorithms to compress images
 
 That’s about it.  Hope you have a nice day! :)
