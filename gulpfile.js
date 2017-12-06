@@ -25,7 +25,7 @@ const RASTER_PATH = SRC_PATH + '/**/*.{jpg,jpeg,png,gif}';
 const PACKAGE = 'images.zip';
 
 const SIZES = [200, 400, 800, 1200, 1600, 2000, 2400];
-const QUALITY = 85;
+const QUALITY = 70;
 
 gulp.task('clean', () => {
   return del.sync([
@@ -100,7 +100,7 @@ SIZES.forEach(function(size) {
         '**/*.*': [
           {
             width: size,
-            quality: 70,
+            quality: QUALITY,
             rename: {
               suffix: responsiveImageTaskSuffix
             }
