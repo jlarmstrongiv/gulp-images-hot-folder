@@ -14,6 +14,8 @@ const changed = require('gulp-changed');
 const imagemin = require('gulp-imagemin');
 const pngquant = require('imagemin-pngquant');
 const imageminMozjpeg = require('imagemin-mozjpeg');
+// const imageminGuetzli = require('imagemin-guetzli');
+const responsive = require('gulp-responsive');
 
 const DIST_PATH = 'dist';
 const SRC_PATH = 'src';
@@ -23,7 +25,7 @@ const RASTER_PATH = SRC_PATH + '/**/*.{jpg,jpeg,png,gif}';
 const PACKAGE = 'images.zip';
 
 const SIZES = [200, 400, 800, 1200, 1600, 2000, 2400];
-const QUALITY = 70;
+const QUALITY = 85;
 
 gulp.task('clean', () => {
   return del.sync([
@@ -51,7 +53,8 @@ SIZES.forEach(function(size) {
            noProfile: false,
            flatten: true,
            imageMagick: true,
-           background: 'transparent'
+           background: 'transparent',
+           quality: 1
          })
       ))
       .pipe(rename((path) => {
@@ -61,33 +64,22 @@ SIZES.forEach(function(size) {
       	imagemin.gifsicle({interlaced: true}),
       	imageminMozjpeg({quality: QUALITY}),
       	pngquant({quality: QUALITY}),
+        // imageminGuetzli({quality: QUALITY}),
       	imagemin.svgo()
       ]))
       .pipe(flatten())
-      .pipe(gulp.dest(DIST_PATH))
       .pipe(plumber.stop())
+      .pipe(gulp.dest(DIST_PATH))
   });
   resizeImageTasks.push(resizeImageTask);
 });
-
-gulp.task('svg', () => {
-  return gulp.src(SVG_PATH)
-    .pipe(plumber())
-    .pipe(imagemin())
-    .pipe(flatten())
-    .pipe(gulp.dest(DIST_PATH))
-    .pipe(plumber.stop())
-});
-
 gulp.task('resize-image-tasks', () => {
   gulp.start(resizeImageTasks);
-})
-
-gulp.task('once', ['clean'], () => {
+});
+gulp.task('r-once', ['clean'], () => {
   return gulp.start(['resize-image-tasks', 'svg']);
 });
-
-gulp.task('watch', ['once'], () => {
+gulp.task('r-watch', ['once'], () => {
   watch(RASTER_PATH, () => {
     return gulp.start('resize-image-tasks');
   });
@@ -96,6 +88,64 @@ gulp.task('watch', ['once'], () => {
   });
 });
 
+let responsiveImageTasks = [];
+SIZES.forEach(function(size) {
+  let responsiveImageTask = 'responsive-' + size;
+  let responsiveImageTaskSuffix = '-' + size;
+  gulp.task(responsiveImageTask, function() {
+    return gulp.src(RASTER_PATH)
+      .pipe(plumber())
+      .pipe(changed(DIST_PATH))
+      .pipe(responsive({
+        '**/*.*': [
+          {
+            width: size,
+            quality: 70,
+            rename: {
+              suffix: responsiveImageTaskSuffix
+            }
+          }
+        ]
+      }, {
+        progressive: true,
+        compressionLevel: 6,
+        withMetadata: false,
+        quality: 70,
+        withoutEnlargement: true,
+        skipOnEnlargement: false,
+        errorOnEnlargement: false,
+        // flatten: true
+      }))
+      .pipe(flatten())
+      .pipe(plumber.stop())
+      .pipe(gulp.dest(DIST_PATH))
+  });
+  responsiveImageTasks.push(responsiveImageTask);
+});
+gulp.task('responsive-image-tasks', () => {
+  gulp.start(responsiveImageTasks);
+});
+gulp.task('once', ['clean'], () => {
+  return gulp.start(['responsive-image-tasks', 'svg']);
+});
+gulp.task('watch', ['once'], () => {
+  watch(RASTER_PATH, () => {
+    return gulp.start('responsive-image-tasks');
+  });
+  watch(SVG_PATH, () => {
+    return gulp.start('svg');
+  });
+});
+// svgs
+gulp.task('svg', () => {
+  return gulp.src(SVG_PATH)
+    .pipe(plumber())
+    .pipe(imagemin())
+    .pipe(flatten())
+    .pipe(gulp.dest(DIST_PATH))
+    .pipe(plumber.stop())
+});
+// zip
 gulp.task('package', ['once'], () => {
   return gulp.src(DIST_PATH)
     .pipe(plumber())
@@ -109,11 +159,9 @@ gulp.task('copy-raster', () => {
     .pipe(flatten())
     .pipe(gulp.dest(DIST_PATH));
 });
-
 gulp.task('once-originals', ['clean'], () => {
   gulp.start(['resize-image-tasks', 'copy-raster', 'svg']);
 });
-
 gulp.task('watch-originals', ['once-originals'], () => {
   watch(RASTER_PATH, () => {
     return gulp.start(['resize-image-tasks', 'copy-raster']);
