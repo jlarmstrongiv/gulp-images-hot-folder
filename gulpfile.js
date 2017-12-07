@@ -20,7 +20,7 @@ const responsive = require('gulp-responsive');
 const DIST_PATH = 'dist';
 const SRC_PATH = 'src';
 const SVG_PATH = SRC_PATH + '/**/*.svg';
-const RASTER_PATH = SRC_PATH + '/**/*.{jpg,jpeg,png,gif}';
+const RASTER_PATH = SRC_PATH + '/**/*.{jpg,jpeg,png,gif,tif,tiff}';
 const PACKAGE = 'images.zip';
 
 const SIZES = [200, 400, 800, 1200, 1600, 2000, 2400];
@@ -96,7 +96,7 @@ SIZES.forEach(function(size) {
       .pipe(plumber())
       .pipe(changed(DIST_PATH))
       .pipe(responsive({
-        '**/*.*': [
+        '**/*.{jpg,jpeg,png,tif,tiff}': [
           {
             width: size,
             quality: QUALITY,
