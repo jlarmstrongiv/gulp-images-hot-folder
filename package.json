@@ -24,28 +24,38 @@
   },
   "homepage": "https://github.com/jlarmstrongiv/gulp-images-hot-folder#readme",
   "devDependencies": {
-    "concurrent-transform": "^1.0.0",
-    "del": "^3.0.0",
-    "flatten": "^1.0.2",
-    "gulp": "^3.9.1",
-    "gulp-changed": "^3.1.1",
-    "gulp-flatten": "^0.3.1",
-    "gulp-image-resize": "^0.13.0",
-    "gulp-imagemin": "^4.0.0",
-    "gulp-imageoptim": "^1.0.9",
-    "gulp-plumber": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-responsive": "^2.8.0",
-    "gulp-svgmin": "^1.2.4",
-    "gulp-watch": "^4.3.11",
-    "gulp-zip": "^4.0.0",
-    "imagemin-guetzli": "^1.0.0",
-    "imagemin-mozjpeg": "^6.0.0",
-    "imagemin-pngquant": "^5.0.1",
-    "plumber": "^0.4.8",
-    "run-sequence": "^2.2.0"
+    "concurrent-transform": "1.0.0",
+    "del": "3.0.0",
+    "flatten": "1.0.2",
+    "gulp": "3.9.1",
+    "gulp-changed": "3.1.1",
+    "gulp-flatten": "0.3.1",
+    "gulp-image-resize": "0.13.0",
+    "gulp-imagemin": "4.0.0",
+    "gulp-imageoptim": "1.0.9",
+    "gulp-plumber": "1.1.0",
+    "gulp-rename": "1.2.2",
+    "gulp-responsive": "2.8.0",
+    "gulp-svgmin": "1.2.4",
+    "gulp-watch": "4.3.11",
+    "gulp-zip": "4.0.0",
+    "imagemin-guetzli": "1.0.0",
+    "imagemin-mozjpeg": "6.0.0",
+    "imagemin-pngquant": "5.0.1",
+    "natives": "^1.1.6",
+    "plumber": "0.4.8",
+    "run-sequence": "2.2.0"
   },
   "dependencies": {
-    "imagemin-gifsicle": "^5.2.0"
+    "imagemin-gifsicle": "5.2.0"
+  },
+  "custom": {
+    "notes": [
+      "nodenv local 10.18.0",
+      "npm install -g gulp@3",
+      "sudo npm install -g node-gyp",
+      "npm install",
+      "npm install -D natives"
+    ]
   }
 }
