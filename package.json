@@ -4,7 +4,10 @@
   "description": "Hot folder to process images with gulp.js and image-resizer Edit",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "start": "gulp watch",
+    "build": "gulp once",
+    "zip": "gulp export",
+    "clean": "gulp clean"
   },
   "repository": {
     "type": "git",
